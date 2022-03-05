@@ -17,5 +17,5 @@ const otherNamesAreLastTwo = [...otherNames].join('') === [names[1],names[2]].jo
 ```
 
 #### Caution
-* Rest Operator can only be the last variable when destructuring
+* Rest Operator can only be the **_last_** variable when destructuring
 * Whether the handled array will be mutated by Array.prototype.methods 
