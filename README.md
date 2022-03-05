@@ -126,14 +126,16 @@ export default {
 import { HOSTNAME } from './config.js'
 const api = {
     getProducts(category, paging) {
-        return fetch(`${this.hostname}/products/${category}?paging=${paging}`).then(
+        return fetch(`${HOSTNAME}/products/${category}?paging=${paging}`).then(
             (response) => response.json()
         );
     },
     getCampaigns() {
-        return fetch(`${this.hostname}/marketing/campaigns`).then((response) =>
+        return fetch(`${HOSTNAME}/marketing/campaigns`).then((response) =>
             response.json()
         );
     }
 }
+
+export default api;
 ```
