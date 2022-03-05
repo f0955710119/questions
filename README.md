@@ -86,15 +86,15 @@ const saladHasTwoItem = salad.sideDish + salad.dressing === order.sideDish + ord
 ```
 
 #### Object.methods ( more common than Object.prototype.methods )
-* Object.keys() / Object.values() / Object.entries()
+`Object.keys() / Object.values() / Object.entries()`
 Turn keys, values or both of an object to array list
 
-* Object.fromEntries()
+`Object.fromEntries()`
 Turn array (or other iterable object) into object
 
-* Object.assign() 
+`Object.assign()`
 A way to clone an object but not deep clone
 
-* Object.create()
+`Object.create()`
 A way to create class
 
