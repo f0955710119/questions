@@ -101,10 +101,10 @@ A way to create class
 ## 3. How to manage RESTful API calls?
 
 ### Send HTTP Requests: axios and fetch()
-1. [Axios vs. fetch(): Which is best for making HTTP requests?](https://blog.logrocket.com/axios-vs-fetch-best-http-requests/)
-2. [request的方式？ ajax & fetch & axios](https://ithelp.ithome.com.tw/articles/10244631)
-3. [Cancel all axios requests in React’s componentWillUnmount Lifecycle.](https://julietonyekaoha.medium.com/react-cancel-all-axios-request-in-componentwillunmount-e5b2c978c071)
-#### Personal Perspective
+* [Axios vs. fetch(): Which is best for making HTTP requests?](https://blog.logrocket.com/axios-vs-fetch-best-http-requests/)
+* [request的方式？ ajax & fetch & axios](https://ithelp.ithome.com.tw/articles/10244631)
+* [Cancel all axios requests in React’s componentWillUnmount Lifecycle.](https://julietonyekaoha.medium.com/react-cancel-all-axios-request-in-componentwillunmount-e5b2c978c071)
+#### Personal Perspective for two methods
 1. fetch() is easy to start with in F2E development ( latest version of Node.js is supported now )
 2. fetch() is less supported than axios in old browsers( need to polyfilled )
 3. fetch() is always resolved when server can response to the request, which makes us identify stauts code ourselves
