@@ -111,7 +111,29 @@ A way to create class
 4. axios itself has system like AbortController API to cancel request
 
 ### Manage URL
-1. Set a config file
+1. Set a config file ( can include other env)
 2. Split hostname and endpoint
 3. Make string of version flexibly change
 4. Set different request function to different endpoint
+```js
+// config.js
+export default {
+    VERSION: '1.0',
+    HOSTNAME: `https://api.appworks-school.tw/api/${this.VERSION}`
+};
+
+// util.js
+import { HOSTNAME } from './config.js'
+const api = {
+    getProducts(category, paging) {
+        return fetch(`${this.hostname}/products/${category}?paging=${paging}`).then(
+            (response) => response.json()
+        );
+    },
+    getCampaigns() {
+        return fetch(`${this.hostname}/marketing/campaigns`).then((response) =>
+            response.json()
+        );
+    }
+}
+```
