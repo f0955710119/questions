@@ -206,6 +206,17 @@ async function stylishLogin() {
 } 
 ```
 
+### 5. How to use CSS Flexbox to create flexible layout?
+1. [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+2. [`flex-grow` is weird. Or is it?](https://css-tricks.com/flex-grow-is-weird/)
+
+#### Why RWD is broken with white space?
+
+### 6. What's Box Model & CSS Box Sizing?
+#### Why Box sizing?
+#### Be cautious about every property related to space
+* Font related space: letter-space / line-height
+
 ## Foreword For React 
 ### 7. How to define a React Element with/without JSX and render it?
 
@@ -330,3 +341,9 @@ It's important to figure out the life cylce of a component since we have to disp
 ### 14. How to handle product variants in React?
 * Different between React Element and Components ( when to create a customed component)
 * Sequence of first-rendering component, hooks, re-rendering
+
+### 15. How to handle carousel in React?
+* When to start an observer
+* Refactor same logic of code
+* useRef to maintain timer & observer
+* Different between useState and UseRef to do infinte scrolling > re-render
