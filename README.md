@@ -21,8 +21,8 @@ const twoNamesArrayHasEqualLength = names.length === namesCopy.length; // false
 ```
 
 #### Caution
-1. Rest Operator can only be the **last** variable when destructuring
-2. Whether the handled array will be **mutated** by Array.prototype.methods
+* Rest Operator can only be the **last** variable when destructuring
+* Whether the handled array will be **mutated** by Array.prototype.methods
 
 ### 2. How to handle object data type?
 
@@ -105,16 +105,16 @@ A way to create class
 * [request的方式？ ajax & fetch & axios](https://ithelp.ithome.com.tw/articles/10244631)
 * [Cancel all axios requests in React’s componentWillUnmount Lifecycle.](https://julietonyekaoha.medium.com/react-cancel-all-axios-request-in-componentwillunmount-e5b2c978c071)
 ##### Personal Perspective for two methods
-1. fetch() is easy to start with in F2E development ( latest version of Node.js is supported now )
-2. fetch() is less supported than axios in old browsers( need to polyfilled )
-3. fetch() is always resolved when server can response to the request, which makes us identify stauts code ourselves
-4. axios itself has system like AbortController API to cancel request
+* fetch() is easy to start with in F2E development ( latest version of Node.js is supported now )
+* fetch() is less supported than axios in old browsers( need to polyfilled )
+* fetch() is always resolved when server can response to the request, which makes us identify stauts code ourselves
+* axios itself has system like AbortController API to cancel request
 
 #### Manage URL
-1. Set a config file ( can include other env)
-2. Split hostname and endpoint
-3. Make string of version flexibly change
-4. Set different request function to different endpoint
+* Set a config file ( can include other env )
+* Split **Hostname** and **Endpoint**
+* Make string of version flexibly change
+* Set different request functions to different endpoints
 ```js
 // config.js
 export default {
@@ -125,11 +125,13 @@ export default {
 // util.js
 import { HOSTNAME } from './config.js'
 const api = {
+    // endpont - 1
     getProducts(category, paging) {
         return fetch(`${HOSTNAME}/products/${category}?paging=${paging}`).then(
             (response) => response.json()
         );
     },
+    // endpoint - 2
     getCampaigns() {
         return fetch(`${HOSTNAME}/marketing/campaigns`).then((response) =>
             response.json()
@@ -142,10 +144,10 @@ export default api;
 
 ### 4. How to use Promise to handle asynchronous operation, e.g., fb login?
 #### Why Promise? Ensure to get specific value in the future
-Cause almost all methods provided by FB SDK are using callback to handle process, it results in that we can not directly store value after calling those methods. Instead, however, we can use Promise as a return value of a function, which package the process. With resolve() and reject() ( features of Promise to store data with certain consuming ways ), we can decide what we will get after consume Promise in different conditiona. 
+Because almost all methods provided by FB SDK are using callback to handle resoponse, it results in that we can not directly store value after calling those methods. Instead, however, we can use Promise as a return value of a function, which package the process. With resolve() and reject() which are features of Promise to store data with certain consuming ways, we can decide what we will get after consume Promise in different condition. 
 #### Consume Promise
 ##### then() & catch() 
-These two methods will help us consume promises with then() for resolve value and catch() for reject one. It's not uncommon to return another promise when using then(), so that we can chain another .then() to resolve that promise and get the incoming value without worring about nested callback hell. As the following example, we can see how we consume resolved value step by step.
+These two methods will help us consume promises. While `then()` can help us to get resolve value, `catch()` gets reject one. It's not uncommon to return another promise when using `then()`, so that we can chain another `.then()` to resolve that promise and get the incoming value without worring about **nested callback hell**. As the following example, we can see how we consume resolved value step by step.
 
 ```js
 fb.loadScript()
@@ -173,9 +175,23 @@ fb.loadScript()
     checkout();
 })
 .catch((error) => window.alert(error));
+```    
+Since `fb.init()` is `FB.init()` which is an async function, we can chain it with other async functions which we write in `utils/` and which all return a new Promise.    
+
+```js
+function testThen() { 
+    return 
+}
+function testThenReturnPromise() { 
+    return Promise.resolve();
+}
+// Cannot read properties of undefined
+testThen().then(()=>{ console.log('a')})
+// will console log 'a'
+testThenReturnPromise().then(()=>{ console.log('a')})
 ```
 ##### async / await
-These syntax is considered to be more elegant when consumnig a resolved value from promise. We will always get the resolved value when using `await`, which means we have to combine usage of try / catch with this method to handle rejected value.    
+These syntax is considered to be more elegant when consumnig a resolved value from promise. We will always get the return value or resolved value when using `await`, which means we have to combine usage of try / catch with this method to handle rejected value.    
 
 ```js
 async function stylishLogin() {
@@ -204,6 +220,19 @@ async function stylishLogin() {
         window.alert(error.message)
     }
 } 
+```    
+As method above, `async / await` still work even we are not awaiting a Promise. See example below.    
+```js
+async function testAsync () {
+    function syncFunc () {
+        return 'sync'
+    }
+    const data = await syncFunc()
+    console.log(data)
+}
+
+// will log 'sync'
+testAsync()
 ```
 
 ### 5. How to use CSS Flexbox to create flexible layout?
@@ -211,10 +240,16 @@ async function stylishLogin() {
 2. [`flex-grow` is weird. Or is it?](https://css-tricks.com/flex-grow-is-weird/)
 3. [Flexbox-cheatsheet](https://flexbox.malven.co/)
 
-#### Why RWD is broken with white space?
-
+#### Why RWD is broken with white space?    
+* Be aware of remained space of flexbox
+* Check width of flexbox container
+* Gap & Margin ( optional )
+    
+    
 ### 6. What's Box Model & CSS Box Sizing?
 #### Why Box sizing?
+* Make a standard to count usage of space
+#### Content-box / Border-box
 #### Be cautious about every property related to space
 * Font related space: letter-space / line-height
 
@@ -234,7 +269,7 @@ const element = React.createElement(
 );
 ```
 #### JSX
-As mentioned, JSX is more intuitive when it comes to checking the structure of an element. It's easier to check up what has been assigned to an element, such as props, children, and also expression. Besides, JSX can prevent from **injection attack** because ReactDOM will escape any values embedded in JSX before rendering them, which means expression of JSX is always seen as text. ([See explanation on stackoverflow](https://stackoverflow.com/questions/57746377/react-documentation-jsx-prevents-injection-attacks))
+As mentioned, JSX is more intuitive when it comes to checking the structure of an element. It's easier to check up what has been assigned to an element, such as props, children, and also expression. Besides, JSX can prevent from **injection attack** because ReactDOM will escape any values embedded in JSX before rendering them, which means expression of JSX is always seen as text. ( [See explanation on stackoverflow](https://stackoverflow.com/questions/57746377/react-documentation-jsx-prevents-injection-attacks) )
 ##### Element created by JSX
 ```js
 const welcomeMessage = 'Hello, World!';
@@ -334,6 +369,12 @@ With this step, I can have a basic concept of what will be affected if I change 
 It's important to figure out the life cylce of a component since we have to display different UI in different stages. Though it's a not easy to define stages of life cycle when using functional component, useEffect() still enables us to do so.    
     
 3. **Check JSX and events that will have side effect or change state**
+
+```mermaid
+graph TD
+    A(Check props, state, and hooks thate are used)-->B(If functional component, draft lifecycle flow);
+    B-->C(JSX structure & Events called);
+```
 
 ### 13. How to handle cart items in React?
 * Index is the controller to decide the content of latest array
