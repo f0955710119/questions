@@ -139,6 +139,73 @@ const api = {
 
 export default api;
 ```
+
+### 4. How to use Promise to handle asynchronous operation, e.g., fb login?
+#### Why Promise? Ensure to get specific value in the future
+Cause almost all methods provided by FB SDK are using callback to handle process, it results in that we can not directly store value after calling those methods. Instead, however, we can use Promise as a return value of a function, which package the process. With resolve() and reject() ( features of Promise to store data with certain consuming ways ), we can decide what we will get after consume Promise in different conditiona. 
+#### Consume Promise
+##### then() & catch() 
+These two methods will help us consume promises with then() for resolve value and catch() for reject one. It's not uncommon to return another promise when using then(), so that we can chain another .then() to resolve that promise and get the incoming value without worring about nested callback hell. As the following example, we can see how we consume resolved value step by step.
+
+```js
+fb.loadScript()
+.then(() => fb.init())
+.then(() => fb.getLoginStatus())
+.then((response) => {
+    if (response.status === 'connected') {
+        return Promise.resolve(response.authResponse.accessToken);
+    }
+    return fb.login().then((response) => {
+        if (response.status === 'connected') {
+            return Promise.resolve(response.authResponse.accessToken);
+        }
+        return Promise.reject('登入失敗');
+    });
+})
+.then((accessToken) =>
+    api.signin({
+        provider: 'facebook',
+        access_token: accessToken,
+    })
+)
+.then((json) => {
+    window.localStorage.setItem('jwtToken', json.data.access_token);
+    checkout();
+})
+.catch((error) => window.alert(error));
+```
+##### async / await
+These syntax is considered to be more elegant when consumnig a resolved value from promise. We will always get the resolved value when using `await`, which means we have to combine usage of try / catch with this method to handle rejected value.    
+
+```js
+async function stylishLogin() {
+    try {
+        await fb.loadScript();
+        await fb.init();
+        const access_token = await fb.getLoginStatus().then(response=>{
+            if (response.status === 'connected') {
+            return Promise.resolve(response.authResponse.accessToken);
+            }
+            return fb.login().then((response) => {
+                if (response.status === 'connected') {
+                return Promise.resolve(response.authResponse.accessToken);
+            }
+            return Promise.reject('登入失敗');
+            });
+        })
+        const signinResponse = await api.signin({
+            provider: 'facebook',
+            access_token
+        })
+        const data = await signinResponse.json()
+        window.localStorage.setItem('jwtToken', json.data.access_token)
+        checkout();
+    } catch (error) {
+        window.alert(error.message)
+    }
+} 
+```
+
 ## Foreword For React 
 ### 7. How to define a React Element with/without JSX and render it?
 
@@ -242,21 +309,24 @@ function carousel () {
 ```
 
 ### 12. How to handle form elements in React?
-* Depending on Validation UI
 * Consider where the data from the form will be used
 * useState() or useReducer() to handle a bunch of infomation
+* Depending on complexity of doing validation of UI (when to give feedback to users)
 
-## Foreword For STYLish 
+## Foreword For STYLiSH 
 When it comes to reading others' React scripts, I will destructe it with three steps.
-1. Check the props, states, or even hooks to get a taste of where data comes    
+1. **Check the props, states, or even hooks to get a taste of where data comes**    
 With this step, I can have a basic concept of what will be affected if I change data when manipulatimg this component.    
     
-2. Draft the flow of life cycle
+2. **Draft the flow of life cycle**    
 It's important to figure out the life cylce of a component since we have to display different UI in different stages. Though it's a not easy to define stages of life cycle when using functional component, useEffect() still enables us to do so.    
     
-3. Check JSX and events that will have side effect or change state
+3. **Check JSX and events that will have side effect or change state**
 
 ### 13. How to handle cart items in React?
-* index is the controller to decide the content of latest array
+* Index is the controller to decide the content of latest array
+* Two-way binding data and how it affects ReactDOM to re-render
 
 ### 14. How to handle product variants in React?
+* Different between React Element and Components ( when to create a customed component)
+* Sequence of first-rendering component, hooks, re-rendering
