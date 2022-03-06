@@ -323,15 +323,44 @@ function Nav(props) {
 * Attributes of a component are a bunch of properties call props, which will be send to the component as an object that can be used as a data source
 * Be cautious that props of a custom component is different from attributes of a React Element
 
-### 10. How to manage data in React?
+### 10. How to manage data in React?    
+There are many ways to handle data in React, such as native props, hooks in functional component, and also 3rd library resources.       
+#### List of ways to handle data in React
 * props ( prop chain )
 * hooks: useState() & useReducer() ( useReducer is better when it comes to object data type )
 * Context API ( A feature that can handle cross-parenet and app-wide data)
-* 3rd library like Redux ( Redux is not only avaiable to React )
-
+* 3rd library like Redux ( Redux is not only avaiable to React )   
+    
+To decide when to use different tool, we can think about 3 perspectives.    
+#### Think about used data
+* Where data is generated, and where it will be passed
+* Is data reusable
+* Will data change frequently
+    
 ### 11. How to handle API call & timer in React?
-* useEffect() ( what is life cycle of a component )
-* useRef() ( give ref to an object )
+* `useEffect()` helps us to decide lifecycle of a functional component ( Class-based component has it own methods ) 
+* `useRef()` give ref to an variable that won't directly render on view   
+
+#### Sequence of component and different hooks
+```js
+function App() {
+   const { useState, useEffect } = React;
+   const [ text, setText ] = useState('I\'m first.');
+   console.log(text);
+   useEffect(()=>{
+     console.log('I\'m second.')
+     setText('I\'m third.')
+   },[])
+
+   return (
+       <h1>{text}</h1>
+   )
+}
+
+ReactDOM.render(<App/>, document.querySelector('#root'));
+```    
+As the example above, we can see how a functional component works with React hooks. Not only the sequence of their executive, but when will React re-render. With the concept of how hook works, we can take a further look on sending HTTP requests.    
+
 
 ```js
 import { useState, useRef, useEffect } from 'react';
@@ -354,10 +383,9 @@ function carousel () {
 }
 
 ```
-
 ### 12. How to handle form elements in React?
 * Consider where the data from the form will be used
-* useState() or useReducer() to handle a bunch of infomation
+* `useState()` or `useReducer()` to handle a bunch of infomation
 * Depending on complexity of doing validation of UI (when to give feedback to users)
 
 ## Foreword For STYLiSH 
