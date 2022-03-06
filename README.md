@@ -139,3 +139,45 @@ const api = {
 
 export default api;
 ```
+
+## 7. How to define a React Element with/without JSX and render it?
+
+### React.createElement()
+This function can take 3 kind of params, which are type, props, children. [See Example with babel](https://pse.is/42392k). It's accessiable to create nested React Elements, but we can have better DX with JSX due to readability of the structure of an element and its props.  
+
+#### Element created by React.createElement()
+```js
+import React from 'react';
+const element = React.createElement(
+  'h1',
+  {className: 'greeting'},
+  'Hello, World!'
+);
+```
+### JSX
+As mentioned, JSX is more intuitive when it comes to checking the structure of an element. It's easier to check up what has been assigned to an element, such as props, children, and also expression. Besides, JSX can prevent from **injection attack** because ReactDOM will escape any values embedded in JSX before rendering them, which means expression of JSX is always seen as text. ([See explanation on stackoverflow](https://stackoverflow.com/questions/57746377/react-documentation-jsx-prevents-injection-attacks))
+#### Element created by JSX
+```js
+const welcomeMessage = 'Hello, World!';
+const element = <h1 className='greeting'>{welcomeMessage}</h1>;
+```
+### How to render React Element?
+After we create all React elements needed to display on browsers, we use ReactDOM to render them. Usually, we will give a `<div id='root'></div>` in the .html which has the src of this .js, and get that Node to be the insert point for our React Elements to render on.
+#### Render
+```js
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+const ReactElement = <h1 className='greeting'>'Hello, World!</h1>;
+ReactDOM.render(<ReactElement />,document.querySelector('#root'))
+```
+```html
+<!-- index.html -->
+<!--  -->
+<body>
+    <div id='root'></div>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel" src="./src/pages/index.js"></script>
+</body>
+```
+
