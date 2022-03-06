@@ -371,7 +371,7 @@ It's important to figure out the life cylce of a component since we have to disp
 3. **Check JSX and events that will have side effect or change state**
 
 ```mermaid
-graph TD
+graph LR
     A(Check props, state, and hooks thate are used)-->B(If functional component, draft lifecycle flow);
     B-->C(JSX structure & Events called);
 ```
@@ -381,11 +381,11 @@ graph TD
 * Two-way binding data and how it affects ReactDOM to re-render
 
 ### 14. How to handle product variants in React?
-* Different between React Element and Components ( when to create a customed component)
+* Different between `React Elements` and `Components` ( when to create a customed component)
 * Sequence of first-rendering component, hooks, re-rendering
 
 ### 15. How to handle carousel in React?
 * When to start an observer
 * Refactor same logic of code
 * useRef to maintain timer & observer
-* Different between useState and UseRef to do infinte scrolling > re-render
+* Different between `useState` and `UseRef` to do infinte scrolling > re-render
