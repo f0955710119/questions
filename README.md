@@ -386,7 +386,7 @@ function carousel () {
 ### 12. How to handle form elements in React?
 * Consider where the data from the form will be used
 * `useState()` or `useReducer()` to handle a bunch of infomation
-* Depending on complexity of doing validation of UI (when to give feedback to users)
+* Depending on complexity of doing validation of UI ( when to give feedback to users )
 
 ## Foreword For STYLiSH 
 When it comes to reading others' React scripts, I will destructe it with three steps.
@@ -394,7 +394,7 @@ When it comes to reading others' React scripts, I will destructe it with three s
 With this step, I can have a basic concept of what will be affected if I change data when manipulatimg this component.    
     
 2. **Draft the flow of life cycle**    
-It's important to figure out the life cylce of a component since we have to display different UI in different stages. Though it's a not easy to define stages of life cycle when using functional component, useEffect() still enables us to do so.    
+It's important to figure out the life cylce of a component since we have to display different UI in different stages. Though it's a not easy to define stages of life cycle when using functional component, `useEffect()` still enables us to do so.    
     
 3. **Check JSX and events that will have side effect or change state**
 
@@ -409,11 +409,12 @@ graph LR
 * Two-way binding data and how it affects ReactDOM to re-render
 
 ### 14. How to handle product variants in React?
-* Different between `React Elements` and `Components` ( when to create a customed component)
+* Different between `React Elements` and `Components` ( when to create a customed component )
 * Sequence of first-rendering component, hooks, re-rendering
+* Why `<li/>` need key
 
 ### 15. How to handle carousel in React?
 * When to start an observer
 * Refactor same logic of code
 * useRef to maintain timer & observer
-* Different between `useState` and `UseRef` to do infinte scrolling > re-render
+* Different between `useState()` and `UseRef()` to do infinte scrolling > re-render
