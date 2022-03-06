@@ -209,6 +209,7 @@ async function stylishLogin() {
 ### 5. How to use CSS Flexbox to create flexible layout?
 1. [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 2. [`flex-grow` is weird. Or is it?](https://css-tricks.com/flex-grow-is-weird/)
+3. [Flexbox-cheatsheet](https://flexbox.malven.co/)
 
 #### Why RWD is broken with white space?
 
