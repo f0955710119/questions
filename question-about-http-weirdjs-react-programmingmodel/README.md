@@ -12,6 +12,36 @@
 
 `Declarative` 撰寫方式在於直接表達出「做什麼」，像是常用的`Array.prototype.reduce()`表達「把陣列濃縮成一個自訂的變數內容」；`Imperative`則在於「怎麼做」，會將流程逐一用判斷式或迴圈撰寫出來。
 
+### 前人努力種樹的結晶
+
+- [The Simple Guide to Programming Paradigms](https://dev.to/tamerlang/the-simple-guide-to-programming-paradigms-36o#imperative-programming)
+
+### 不同程式語言的例子
+
+##### delcarative programming e.g. SQL (firebase v9 也是類似的概念)
+
+```sql
+-- SQL
+select gender, sum(income)
+from income_list
+group by gender;
+```
+
+##### imperative programming e.g. JavaScript
+
+```js
+var income_m = 0,
+  income_f = 0,
+  income_list = [
+    { gender: "M", income: 100 },
+    { gender: "F", income: 100 },
+  ];
+for (var i = 0; i < income_list.length; i++) {
+  if (income_list[i].gender == "M") income_list[i].income;
+  else income_f += income_list[i].income;
+}
+```
+
 ### 生活例子
 
 帶問題去問谷哥或子華問題，會得到關於問題的關鍵字，這是 declarative 的運作方式
@@ -46,32 +76,6 @@ setupConcept(["declarative", "imperative"]);
 
 由此可見，我們不知道谷哥跟子華心裡是怎麼處理我們的問題來給我們關鍵字，但同一個學生、同一個問題去詢問，會得到同一個關鍵字；當我們要轉換成自己想法時，會對我們的腦袋知識庫做 CRUD，而每個人做 CRUD 的流程都不一樣。
 
-### 不同程式語言的例子
-
-##### delcarative programming e.g. SQL (firebase v9 也是類似的概念)
-
-```sql
--- SQL
-select gender, sum(income)
-from income_list
-group by gender;
-```
-
-##### imperative programming e.g. JavaScript
-
-```js
-var income_m = 0,
-  income_f = 0,
-  income_list = [
-    { gender: "M", income: 100 },
-    { gender: "F", income: 100 },
-  ];
-for (var i = 0; i < income_list.length; i++) {
-  if (income_list[i].gender == "M") income_list[i].income;
-  else income_f += income_list[i].income;
-}
-```
-
 ### 與 FP / OOP 的關係
 
 #### Functional Programming
@@ -79,21 +83,24 @@ for (var i = 0; i < income_list.length; i++) {
 再繼續延伸前面的生活例子，今天去問谷哥跟子華之前，我們先請身邊的夥伴幫我們看 Error 可能是什麼。
 
 ```js
-function solveCodeProblem(student, question) {
-  if (pontentialError.status === "resolved")
-    return function (solution) {
-      const codeCanWork = solution(student, question);
-      return codeCanWork;
-    };
+function solveCodeProblem(question) {
+  return function (problemStatus) {
+    if (problemStatus === "resolved")
+      return function (solutionCallback) {
+        const codeCanWork = solutionCallback(question);
+        return codeCanWork;
+      };
 
-  return function (getKeyword) {
-    const keyword = getKeyword(student, question);
+    return function (getKeywordCallback) {
+      const keyword = getKeywordCallback(question);
+      return keyword;
+    };
   };
 }
-const decideHowToDealProblem = solveCodeProblem(errorView);
+const dealingProblemFunction = solveCodeProblem(question)(problemStatus);
 ```
 
-`pontentialError`是環境變數，也就是我們當前跟夥伴討論後的腦袋狀況。如果成功解開，可以再呼叫一個 function，它的參數能帶入解法 callback 來得到解答，而這塊`function (solution) {const codeCanWork = solution();return codeCanWork;};`本身是一塊`Higher-order Function`；相反的，如果沒解開，我們會去得到 function，讓這個 function 能帶入去詢問谷哥或子華的 callback，來拿到關鍵字。利用柯里化的方式幫我們拆分流程，做到更細緻的處理與重複使用
+這裡我們會知道自己的 `problemStatus` 帶了什麼東西，所以可以去決定接著決定要帶入的做法(要再給什麼 `callback` )。不同狀態會得到不同 `function`，它的參數能帶入解法 `callback` 來得到解答。我們可以在不同狀況下，決定使用夥伴的解答，還是去找谷哥跟子華討論來找關鍵字。利用`currying`跟`Higher-order Function`的方式幫我們拆分流程，做到更細緻的處理與重複使用
 
 #### Object-Oriented Programming
 
@@ -108,7 +115,8 @@ class Error {
     }
     getErrorConcrete(){},
     searchOnGoogle(){},
-    readDocumemt(){}
+    readDocumemt(){},
+    askTeacher(){}
 }
 
 class TypeError extends Error {
@@ -116,11 +124,12 @@ class TypeError extends Error {
     constructor(type){
         this.type = type
     }
-    studyWeirdPartOfType(){}
+    studyType(){},
+    addValidationTest(){},
 }
 ```
 
-像我們可能常常在開發上遇到 JS 會有 Type 的組合跟我們想像不一樣，因此產生很多 error，因此我們可以延伸我們遇到錯誤時會有的共同特性，再針對型態類型的錯誤去蒐集它們的共同性。
+像我們可能常常在開發上遇到 JS 會有 Type 造成我們想像不一樣的 error，因此我們可以延伸我們遇到錯誤時會有的共同特性，再針對型態類型的錯誤去蒐集它們的共同性。
 
 ### Declarative
 
@@ -129,17 +138,15 @@ class TypeError extends Error {
 3. 語法簡潔
 4. 重複執行同樣的參數值會有同樣結果，且不影響系統
 5. 不用自己去做除錯機制 ( imperative 需要做 else )
-6. `3 + 4 = 4 + 3` 可以不用特別在意順序 (像在 firebase 用 where 的複合索引打開後，不用刻意去排同範圍的 where 搜尋順序)
+6. `3 + 4 = 4 + 3` 可以不用特別在意順序 ( 像在 firebase 用 where 的複合索引打開後，不用刻意去排同範圍的 where 搜尋順序 )
 7. 過程比較抽象
-8. 本身不好分離  
-   以 HTML 違例，在前端我們會用 JS 分拆，在後端會用模板套件(e.g. pug)，但我們都必須額外去找方式再去整理
 
 ### Imperative
 
-1. 較好上手 (有嗎???????)  
+1. 較好上手 ( 有嗎??????? )  
    確實若以剛接觸一門程式語言的角度來看，知道一些語法本身的特性，像是型態跟 forloop，就可以直接寫出一個 sum 的 function
 2. 程式會按照我們自己設計的流程去執行  
-   像是我們可以去分拆成模組(OOP 思維)，或是自己定義處理一個 state 的程序(同樣的 sum 可以有很多處理方式)，更細部可以針對不同狀況去寫 condition
+   像是我們可以去分拆成模組 ( OOP 思維 )，或是自己定義處理一個 state 的程序 ( 同樣的 sum 可以有很多處理方式 )，更細部可以針對不同狀況去寫 condition
 3. 能自己去拆分跟組裝
 4. 整個環境的 state 是互相影響的
 5. 執行順序很重要
