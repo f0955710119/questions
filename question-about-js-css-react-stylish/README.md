@@ -7,6 +7,14 @@
 * ES6 Spread / Rest Operator
 * Array.prototype.methods
 
+#### How to check if a variable is array
+* `Array.isAarray()`
+
+#### Perforance
+* `forEach()` is 24% slower than `for...of`
+
+#### 以使用目的分類method
+ 
 #### Example
 
 ```js
@@ -23,9 +31,12 @@ const twoNamesArrayHasEqualLength = names.length === namesCopy.length; // false
 #### Caution
 * Rest Operator can only be the **last** variable when destructuring
 * Whether the handled array will be **mutated** by Array.prototype.methods
+* Check the value returned by array.prototype.method
 
 ### 2. How to handle object data type?
 
+
+#### For
 #### Key ( with dot or brackets )
 ```js
 const user = {
@@ -96,7 +107,11 @@ Turn array (or other iterable object) into object
 A way to clone an object but not deep clone
 
 `Object.create()`
-A way to create class
+A way to create class    
+     
+`Object.defineProperties()`    
+    
+#### Object本身的屬性
 
 ### 3. How to manage RESTful API calls?
 
@@ -142,7 +157,9 @@ const api = {
 export default api;
 ```
 
-### 4. How to use Promise to handle asynchronous operation, e.g., fb login?
+### 4. How to use Promise to handle asynchronous operation, e.g., fb login?    
+#### What is Promise?    
+
 #### Why Promise? Ensure to get specific value in the future
 Because almost all methods provided by FB SDK are using callback to handle resoponse, it results in that we can not directly store value after calling those methods. Instead, however, we can use Promise as a return value of a function, which package the process. With resolve() and reject() which are features of Promise to store data with certain consuming ways, we can decide what we will get after consume Promise in different condition. 
 #### Consume Promise
@@ -252,6 +269,7 @@ testAsync()
 #### Content-box / Border-box
 #### Be cautious about every property related to space
 * Font related space: letter-space / line-height
+* There will be not margin collapse In flexbox / grid 
 
 ## Foreword For React 
 ### 7. How to define a React Element with/without JSX and render it?
