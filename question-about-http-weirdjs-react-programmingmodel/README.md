@@ -131,6 +131,119 @@ class TypeError extends Error {
 
 像我們可能常常在開發上遇到 JS 會有 Type 造成我們想像不一樣的 error，因此我們可以延伸我們遇到錯誤時會有的共同特性，再針對型態類型的錯誤去蒐集它們的共同性。
 
+### 以 STYLiSH 為例比較兩者: 有 React 真的很美好
+
+#### 畫面渲染
+
+##### Vanilla JS 的 Imperative 寫法
+
+```js
+function createCustomedElement(tag, attributeArr, text) {
+  const element = document.createElement(tag);
+  attributeArr.forEach((attribute) => {
+    element.setAttribute(attribute.attribute.value);
+  });
+  if (!text) return element;
+  const nodeText = document.createNodeText(text);
+  element.appendChild(nodeText);
+  return;
+}
+
+const headerAttributes = [{ name: "class", value: "header" }];
+
+const logoLinkAttributes = [
+  { name: "class", value: "logo" },
+  { name: "href", value: "./index.html" },
+];
+
+const logoImageAttributes = [
+  { name: "class", value: "logo__image" },
+  { name: "src", value: "./img/logo.png" },
+  { name: "alt", value: "STYLiSH logo" },
+];
+
+const body = document.body;
+const header = createCustomedElement("header", headerAttributes);
+const logo = createCustomedElement("a", logoLinkAttributes);
+const logoImage = createCustomedElement("img", logoImageAttributes);
+
+logo.appendChild(logoImage);
+header.appendChild(logo);
+body.appendChild(header);
+```
+
+##### React 的 delcarative 寫法 (CDN 載入)
+
+```js
+function Header() {
+  return (
+    <header className="header">
+      <ReactRouterDOM.Route path="/index">
+        <ReactRouterDOM.Link to="/">
+          <img src="./img/logo.png" alt="STYLiSH logo" />
+        </ReactRouterDOM.Link>
+      </ReactRouterDOM.Route>
+    </header>
+  );
+}
+
+function App() {
+  return <Header />;
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+#### 事件監聽
+
+##### Vanilla JS 的 Imperative 寫法 ( 擷取部分 )
+
+```js
+const button = document.querySelect(".btn--delete");
+
+button.addEvenetListener("click", clickToDeleteCartItem);
+
+function clickToDeleteCartItem(event) {
+  const container = event.target.closest(".container");
+  const cartItemsNeedParse = localStorage.getItem("ITEMS");
+  const cartItems = JSON.parse(cartItemsNeedParse);
+
+  const id = container.querySelector(".cart__id").textContent;
+  const color = container.querySelector(".cart__color").dataset.colorCode;
+  const size = container.querySelector(".cart__size").textContent;
+  const idForLocalStorage = id + color + size;
+  const newCartItems = cartItems.filter(
+    (item) => item.idForLocalStorage !== idForLocalStorage
+  );
+  localStorage.setItem("ITEMS", newCartItems);
+
+  const cartIcon = document.querySelector(".icon--cart");
+  const cartMobileIcon = document.querySelector(".icon--cart--mobile");
+  const cartTitleNumber = document.querySelector(".cart__title");
+
+  const itemsQuantity = newCartItems.length;
+  cartIcon.textContent = itemsQuantity;
+  cartMobileIcon.textContent = itemsQuantity;
+  cartTitleNumber.textContent = `購物車(${itemsQuantity})`;
+
+  container.remove();
+}
+
+// https://github.com/f0955710119/Stylish-Backend/commit/4a7dcc91b2b8fa40811c422360838400e5f6d380
+// ctrl+F: public/src/views/CartView.js
+```
+
+##### React 的 delcarative 寫法 (CDN 載入)
+
+- 不用一直呼叫各種 generateMarkup() > render 就會重新抓 localStoage 來改變 useState 的初始值 (兩者放的順序很重要，不然不會重抓)
+- 不用把 DOM 物件一直叫出來 > 不用做 DOM manipulate 讓我非常有 DX
+- 可以整個 App 共用一個 localStorage 的 state，並不斷更新 > 原本在 MVC 會需要一個 controll 來寫 handler 的 callback 去協調 model 的 state 跟 view 接收到 event 後要再做得 render
+
+```js
+// 來，我們直接來看STYLiSH齁 :)
+// https://github.com/f0955710119/Stylish-Backend/blob/main/public/src/pages/cart.js
+```
+
 ### Declarative
 
 1. 程式碼目的清楚
