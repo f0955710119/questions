@@ -245,7 +245,6 @@ function clickToDeleteCartItem(cartItems, event) {
 ![React流程](/question-about-http-weirdjs-react-programmingmodel/img/delete%E7%9A%84react%E6%B5%81%E7%A8%8B%E5%9C%96.png)
 
 ```js
-// 來，我們直接來看STYLiSH齁 :)
 // https://github.com/f0955710119/Stylish-Backend/blob/main/public/src/pages/cart.js
 ```
 
