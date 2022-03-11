@@ -196,22 +196,23 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 #### 事件監聽
 
-##### Vanilla JS 的 Imperative 寫法 ( 擷取部分 )
+##### Vanilla JS 的 Imperative 寫法 ( 擷取部分 MVC 寫 OOP )
 
+<!--
 ```js
+const cartItemsNeedParse = localStorage.getItem("ITEMS");
+const cartItems = JSON.parse(cartItemsNeedParse);
+
 const button = document.querySelect(".btn--delete");
+button.addEvenetListener("click", clickToDeleteCartItem.bind(null, cartItems));
 
-button.addEvenetListener("click", clickToDeleteCartItem);
-
-function clickToDeleteCartItem(event) {
+function clickToDeleteCartItem(cartItems, event) {
   const container = event.target.closest(".container");
-  const cartItemsNeedParse = localStorage.getItem("ITEMS");
-  const cartItems = JSON.parse(cartItemsNeedParse);
-
   const id = container.querySelector(".cart__id").textContent;
   const color = container.querySelector(".cart__color").dataset.colorCode;
   const size = container.querySelector(".cart__size").textContent;
   const idForLocalStorage = id + color + size;
+
   const newCartItems = cartItems.filter(
     (item) => item.idForLocalStorage !== idForLocalStorage
   );
@@ -231,13 +232,17 @@ function clickToDeleteCartItem(event) {
 
 // https://github.com/f0955710119/Stylish-Backend/commit/4a7dcc91b2b8fa40811c422360838400e5f6d380
 // ctrl+F: public/src/views/CartView.js
-```
+``` -->
+
+![MVC流程](/question-about-http-weirdjs-react-programmingmodel/img/delete%E7%9A%84MVC%E6%B5%81%E7%A8%8B.png)
 
 ##### React 的 delcarative 寫法 (CDN 載入)
 
 - 不用一直呼叫各種 generateMarkup() > render 就會重新抓 localStoage 來改變 useState 的初始值 (兩者放的順序很重要，不然不會重抓)
 - 不用把 DOM 物件一直叫出來 > 不用做 DOM manipulate 讓我非常有 DX
 - 可以整個 App 共用一個 localStorage 的 state，並不斷更新 > 原本在 MVC 會需要一個 controll 來寫 handler 的 callback 去協調 model 的 state 跟 view 接收到 event 後要再做得 render
+
+![React流程](/question-about-http-weirdjs-react-programmingmodel/img/delete%E7%9A%84react%E6%B5%81%E7%A8%8B%E5%9C%96.png)
 
 ```js
 // 來，我們直接來看STYLiSH齁 :)
