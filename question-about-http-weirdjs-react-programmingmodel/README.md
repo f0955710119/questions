@@ -18,7 +18,7 @@
 
 ### 不同程式語言的例子
 
-##### delcarative programming e.g. SQL (firebase v9 也是類似的概念)
+##### delcarative programming e.g. SQL
 
 ```sql
 -- SQL
@@ -253,9 +253,9 @@ function clickToDeleteCartItem(cartItems, event) {
 1. 程式碼目的清楚
 2. 可以重複使用
 3. 語法簡潔
-4. 重複執行同樣的參數值會有同樣結果，且不影響系統
-5. 不用自己去做除錯機制 ( imperative 需要做 else )
-6. `3 + 4 = 4 + 3` 可以不用特別在意順序 ( 像在 firebase 用 where 的複合索引打開後，不用刻意去排同範圍的 where 搜尋順序 )
+4. 重複執行同樣的參數值會有同樣結果，且不影響系統 state
+5. 不用自己去做除錯機制 (在哪塊出錯會直接有 error)
+6. `3 + 4 = 4 + 3` 可以不用特別在意順序
 7. 過程比較抽象
 
 ### Imperative
@@ -263,10 +263,9 @@ function clickToDeleteCartItem(cartItems, event) {
 1. 較好上手 ( 有嗎??????? )  
    確實若以剛接觸一門程式語言的角度來看，知道一些語法本身的特性，像是型態跟 forloop，就可以直接寫出一個 sum 的 function
 2. 程式會按照我們自己設計的流程去執行  
-   像是我們可以去分拆成模組 ( OOP 思維 )，或是自己定義處理一個 state 的程序 ( 同樣的 sum 可以有很多處理方式 )，更細部可以針對不同狀況去寫 condition
-3. 能自己去拆分跟組裝
-4. 整個環境的 state 是互相影響的
-5. 執行順序很重要
+   分拆成模組 ( e.g. OOP )，或是自己定義處理一個 state 的程序 ( 同樣的 sum 可以有很多處理方式 )
+3. 整個環境的 state 是互相影響的
+4. 執行順序很重要
 
 ### 詞彙定義的討論
 
