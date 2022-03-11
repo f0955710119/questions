@@ -12,7 +12,7 @@
 
 `Declarative` 撰寫方式在於直接表達出「做什麼」，像是常用的`Array.prototype.reduce()`表達「把陣列濃縮成一個自訂的變數內容」；`Imperative`則在於「怎麼做」，會將流程逐一用判斷式或迴圈撰寫出來。
 
-### 前人努力種樹的結晶
+### 不同分支
 
 - [The Simple Guide to Programming Paradigms](https://dev.to/tamerlang/the-simple-guide-to-programming-paradigms-36o#imperative-programming)
 
@@ -61,7 +61,7 @@ function setupConcept(concept) {
 
   var knowledge = [];
   var conceptQuantity = concepts.length;
-  if (conceptQuantity === 0) return alert("我沒知識...:)");
+  if (conceptQuantity === 0) return alert("知識為零");
 
   var i = 0;
   while (i < knowledgeQuantity) {
@@ -131,7 +131,7 @@ class TypeError extends Error {
 
 像我們可能常常在開發上遇到 JS 會有 Type 造成我們想像不一樣的 error，因此我們可以延伸我們遇到錯誤時會有的共同特性，再針對型態類型的錯誤去蒐集它們的共同性。
 
-### 以 STYLiSH 為例比較兩者: 有 React 真的很美好
+### 以 STYLiSH 為例比較兩者
 
 #### 畫面渲染
 
