@@ -27,7 +27,7 @@ JavaScript 本身是依靠 prototype 去產生不同類型的 Object，因此才
 
 ## this 是根據「function 被呼叫的位置」去找東西
 
-`this` 的關鍵所在，我們可以先理解它的在不同環境的不同指向。
+`this` 的關鍵所在，我們可以先理解它是在不同被呼叫的環境去指向不同物件。
 
 > In most cases, the value of this is determined by how a function is called (runtime binding). It can't be set by assignment during execution, and it may be different each time the function is called.
 
@@ -62,7 +62,7 @@ class 內部寫的 methods 也會以 prototype 的方式加到 constructor 特�
 
 ### 圖表流程化
 
-![lifecycle](/question-class-component/img/lifecycle.svg)
+![lifecycle](/question-class-component/img/component-lifecycle-update.svg)
 
 ## Demo 如何用 `Class-Based Component` 實作 window 的 onScroll
 
@@ -72,7 +72,8 @@ class 內部寫的 methods 也會以 prototype 的方式加到 constructor 特�
 
 ### 實際 code 的差異
 
-[Class-Based Component Demo](https://codepen.io/f0955710119/pen/ExoxEVJ?editors=0011)
+[Class-Based Component Demo](https://codepen.io/f0955710119/pen/ExoxEVJ?editors=0011)  
+[Executive Sequence of Function Component](https://codepen.io/f0955710119/pen/MWrYWZx)
 
 #### 定義 state 跟 functions
 
@@ -196,3 +197,5 @@ return <h1 onClick={clickToChangeTitle}>{title}</h1>;
    > [林彥成: React Class-based vs Functional Component
    > 從特性淺談兩種寫法之異同](https://linyencheng.github.io/2020/02/02/react-component-class-based-vs-functional/)  
    > [莫力全: 【Day 8】Class component && Functional component](https://ithelp.ithome.com.tw/articles/10214751)
+4. memory leak
+   > [MDN - 記憶體管理](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Memory_Management)
