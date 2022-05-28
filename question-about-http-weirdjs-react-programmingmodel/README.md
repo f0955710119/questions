@@ -1,10 +1,4 @@
-# 15 Questions about HTTP, Weird JS, React DOM, FP, and OOP
-
-## 13.Object-oriented programming
-
-## 14.What is Big O notation?
-
-## 15.What is the difference between declarative and imperative paradigm in programming?
+# What is the difference between declarative and imperative paradigm in programming?
 
 ![paradigms](https://www.ionos.com/digitalguide/fileadmin/DigitalGuide/Schaubilder/programming-paradigms.png)
 
